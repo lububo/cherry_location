@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  GARDEN
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  role         UserRole @default(GARDEN)
+  gardens      Garden[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Garden {
+  id               String   @id @default(cuid())
+  ownerId          String
+  owner            User     @relation(fields: [ownerId], references: [id])
+  name             String
+  region           String
+  latitude         Float
+  longitude        Float
+  coordinatesText  String?
+  isSelfPick       Boolean  @default(false)
+  pricePerKg       String?
+  contactPhone     String?
+  contactEmail     String?
+  images           GardenImage[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model GardenImage {
+  id        String   @id @default(cuid())
+  gardenId  String
+  garden    Garden   @relation(fields: [gardenId], references: [id])
+  url       String
+  createdAt DateTime @default(now())
+}

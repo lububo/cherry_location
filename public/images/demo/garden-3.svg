@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg3" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f2e7ff" />
+      <stop offset="100%" stop-color="#fce0c7" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" rx="36" fill="url(#bg3)" />
+  <rect y="350" width="900" height="250" fill="#e5d4c0" />
+  <circle cx="300" cy="280" r="92" fill="#b83c4a" />
+  <circle cx="420" cy="320" r="98" fill="#d95d6a" />
+  <path d="M300 190 C310 90 420 80 470 130" fill="none" stroke="#3b6c3b" stroke-width="14" stroke-linecap="round"/>
+  <path d="M470 190 C520 160 600 180 650 230" fill="none" stroke="#3b6c3b" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="640" cy="260" r="32" fill="#6fb363" />
+  <circle cx="680" cy="290" r="26" fill="#7fc370" />
+  <text x="70" y="90" font-family="Arial" font-size="48" fill="#3b2e2e">Summer cherries</text>
+</svg>
