@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cherry Location
 
-## Getting Started
+A map-based directory for cherry gardens in Bulgaria. Garden owners can register, manage their listings, and visitors can browse, search, and filter gardens on an interactive map.
 
-First, run the development server:
+**Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS, Prisma ORM, SQLite, NextAuth.js, Leaflet
+
+---
+
+## Prerequisites
+
+- Node.js 18+
+- npm
+
+---
+
+## Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment variables
+
+Create a `.env` file in the project root:
+
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="your-secret-here"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+> For development you can use any string for `NEXTAUTH_SECRET`. In production use a strong random value.
+
+### 3. Initialize the database
+
+Run migrations to create the database schema:
+
+```bash
+npm run prisma:migrate
+```
+
+### 4. Seed demo data
+
+Populate the database with demo users and gardens:
+
+```bash
+npm run db:seed
+```
+
+This creates the following demo accounts (password: `demo123`):
+
+| Email | Name | Role |
+|-------|------|------|
+| `owner1@demo.bg` | Черешова градина Тракия | GARDEN |
+| `owner2@demo.bg` | Black Sea Cherry Farm | GARDEN |
+| `owner3@demo.bg` | Родопски череши | GARDEN |
+| `owner4@demo.bg` | Балканска черешова ферма | GARDEN |
+| `admin@demo.bg` | Администратор Черешово | ADMIN |
+
+### 5. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run prisma:migrate` | Run database migrations |
+| `npm run db:seed` | Seed demo data |
+| `npm run prisma:studio` | Open Prisma Studio (database GUI) |
+| `npm run lint` | Run ESLint |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app uses SQLite via Prisma ORM. The database file is located at `prisma/dev.db`.
 
-## Deploy on Vercel
+To inspect or edit data directly, use Prisma Studio:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run prisma:studio
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To reset and re-seed the database:
+
+```bash
+# Delete the database file and re-run migrations + seed
+rm prisma/dev.db
+npm run prisma:migrate
+npm run db:seed
+```
