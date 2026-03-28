@@ -28,6 +28,39 @@ async function main() {
     },
   });
 
+  const owner3 = await prisma.user.upsert({
+    where: { email: "owner3@demo.bg" },
+    update: {},
+    create: {
+      email: "owner3@demo.bg",
+      name: "Родопски череши",
+      passwordHash,
+      role: "GARDEN",
+    },
+  });
+
+  const owner4 = await prisma.user.upsert({
+    where: { email: "owner4@demo.bg" },
+    update: {},
+    create: {
+      email: "owner4@demo.bg",
+      name: "Балканска черешова ферма",
+      passwordHash,
+      role: "GARDEN",
+    },
+  });
+
+  const admin = await prisma.user.upsert({
+    where: { email: "admin@demo.bg" },
+    update: {},
+    create: {
+      email: "admin@demo.bg",
+      name: "Администратор Черешово",
+      passwordHash,
+      role: "ADMIN",
+    },
+  });
+
   const existingGardens = await prisma.garden.count();
   if (existingGardens === 0) {
     await prisma.garden.create({
@@ -84,6 +117,48 @@ async function main() {
         pricePerKg: "7.00 лв/кг",
         contactPhone: "+359 88 456 7890",
         contactEmail: "burgas@demo.bg",
+      },
+    });
+    await prisma.garden.create({
+      data: {
+        ownerId: owner3.id,
+        name: "Родопска черешова градина",
+        region: "Смолян",
+        latitude: 41.5766,
+        longitude: 24.7075,
+        coordinatesText: "41.5766, 24.7075",
+        isSelfPick: true,
+        pricePerKg: "6.80 лв/кг",
+        contactPhone: "+359 88 567 8901",
+        contactEmail: "rhodope@demo.bg",
+      },
+    });
+    await prisma.garden.create({
+      data: {
+        ownerId: owner4.id,
+        name: "Балканска черешова градина",
+        region: "Габрово",
+        latitude: 42.8742,
+        longitude: 25.3187,
+        coordinatesText: "42.8742, 25.3187",
+        isSelfPick: false,
+        pricePerKg: "6.20 лв/кг",
+        contactPhone: "+359 88 678 9012",
+        contactEmail: "balkan@demo.bg",
+      },
+    });
+    await prisma.garden.create({
+      data: {
+        ownerId: admin.id,
+        name: "Административна черешова градина",
+        region: "София",
+        latitude: 42.6977,
+        longitude: 23.3219,
+        coordinatesText: "42.6977, 23.3219",
+        isSelfPick: true,
+        pricePerKg: "7.50 лв/кг",
+        contactPhone: "+359 88 789 0123",
+        contactEmail: "admin@demo.bg",
       },
     });
   }
